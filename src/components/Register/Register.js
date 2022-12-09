@@ -82,7 +82,7 @@ const Register = () => {
                                 <button className="btn btn-primary ">Register</button>
                             </div>
                         </form>
-                        <button onClick={handleGoogleSignIn} className="btn btn-outline btn-success">Google SignIn</button>
+                        <button onClick={handleGoogleSignIn} className="btn btn-outline btn-success w-4/5 text-center ml-9 ">Google SignIn</button>
                     </div>
                 </div>
             </div>

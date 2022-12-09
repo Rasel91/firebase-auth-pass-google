@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/UserContext';
 
 const Header = () => {
-    const { user,logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
     // console.log('context', user);
 
-     const handleSignOut=()=>{
+    const handleSignOut = () => {
         logOut()
-        .then(()=>{
+            .then(() => {
 
-        })
-        .catch(error=>console.error(error))
-     }
+            })
+            .catch(error => console.error(error))
+    }
     return (
 
         <div className="navbar bg-cyan-800">
@@ -24,9 +24,14 @@ const Header = () => {
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <Link to='/' className="btn btn-ghost normal-case text-xl">Home</Link>
-                        <Link to='/login' className="btn btn-ghost normal-case text-xl">Log In </Link>
+                        {/* <Link to='/login' className="btn btn-ghost normal-case text-xl">Log In </Link> */}
+                        <Link to='/orders' className="btn btn-ghost normal-case text-xl">Orders </Link>
                         <Link to='/register' className="btn btn-ghost normal-case text-xl">Register</Link>
-                        <button onClick={handleSignOut} className="btn btn-sm">Logout</button>
+                        {
+                            user?.email ?
+                                <button onClick={handleSignOut} className="btn btn-ghost normal-case ml-9">LogOut</button>
+                                : <Link to='/login'><button className="btn btn-sm ml-14 ">Log In</button></Link>
+                        }
                     </ul>
                 </div>
             </div>
@@ -34,12 +39,28 @@ const Header = () => {
             <div className="navbar-end">
                 <div>
                     <Link to='/' className="btn btn-ghost normal-case text-xl">Home</Link>
-                    <Link to='/login' className="btn btn-ghost normal-case text-xl">Log In </Link>
+                    <Link to='/orders' className="btn btn-ghost normal-case text-xl">Orders </Link>
                     <Link to='/register' className="btn btn-ghost normal-case text-xl">Register</Link>
                     {
                         user?.email && <span>Welcome, {user.email}</span>
                     }
-                    <button onClick={handleSignOut} className="btn btn-sm">Logout</button>
+
+                    {
+                        user?.email ?
+                            <button onClick={handleSignOut} className="btn btn-sm">LogOut</button>
+                            : <Link to='/login'><button className="btn btn-sm normal-case">Log In</button>  </Link>
+                    }
+                    {
+                        user?.photoURL && <div className="avatar">
+                            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <span>{user.photoURL}</span>
+                            </div>
+                        </div>
+
+
+
+
+                    }
                 </div>
             </div>
         </div>
